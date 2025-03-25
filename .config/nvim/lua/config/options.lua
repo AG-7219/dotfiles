@@ -28,3 +28,16 @@ vim.g.clipboard = {
 vim.g.lazyvim_python_lsp = "pyright"
 -- Set to "ruff_lsp" to use the old LSP implementation version.
 vim.g.lazyvim_python_ruff = "ruff"
+
+-- Netrw settings to use gssh-agent for ssh commands
+vim.g.netrw_scp_cmd           = 'gssh-agent scp -q'
+vim.g.netrw_scp_cmd           = 'gssh-agent scp -q'
+vim.g.netrw_sftp_cmd          = 'gssh-agent sftp'
+vim.g.netrw_ssh_cmd           = 'gssh-agent ssh'
+vim.g.netrw_list_cmd          = 'gssh-agent ssh USEPORT HOSTNAME ls -FLa'
+vim.g.netrw_mkdir_cmd         = 'gssh-agent ssh USEPORT HOSTNAME mkdir'
+vim.g.netrw_rename_cmd        = 'gssh-agent ssh USEPORT HOSTNAME mv'
+vim.g.netrw_rm_cmd            = 'gssh-agent ssh USEPORT HOSTNAME rm'
+vim.g.netrw_rmdir_cmd         = 'gssh-agent ssh USEPORT HOSTNAME rmdir'
+vim.g.netrw_rmf_cmd           = 'gssh-agent ssh USEPORT HOSTNAME rm -f '
+vim.g.netrw_ssh_cmd           = 'gssh-agent ssh'

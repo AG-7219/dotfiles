@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 setopt histignorealldups sharehistory
 
 # Enable Ctrl-x-e to edit command line
@@ -62,7 +69,8 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR=/usr/bin/nvim
 export TERM=xterm-256color
-export PATH=$HOME/.local/bin:$PATH 
+[[ -n "$TMUX" ]] && export TERM=tmux-256color
+export PATH=$HOME/.local/bin:$PATH
 export BAT_THEME="Catppuccin Mocha"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
@@ -76,5 +84,9 @@ alias ls="eza --color=always --git --no-filesize --icons=always --no-time --no-u
 # Set visual mode to vim
 bindkey -v
 
-eval "$(oh-my-posh init zsh --config /home/ayush.gangwani/.config/oh-my-posh/config.json)"
+source /git_utils/git_opt.sh
+source /git_utils/git_opt.sh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

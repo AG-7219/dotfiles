@@ -49,6 +49,15 @@ _is_disabled() {
   [ "$1" = "disabled" ]
 }
 
+_format_dsquare() {
+    local format_dsquare="󰎢󰎥󰎨󰎫󰎲󰎯󰎴󰎷󰎺󰎽"
+    local ID=$1
+    for ((i = 0; i < ${#ID}; i++)); do
+        DIGIT=${ID:i:1}
+        echo -n "${format_dsquare:DIGIT:1} "
+    done
+}
+
 _circled() {
   circled_digits='⓪ ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳'
   if [ "$1" -le 20 ] 2>/dev/null; then
@@ -1207,6 +1216,7 @@ _apply_theme() {
   window_status_format=$(printf '%s' "${window_status_format:-$(tmux show -gv window-status-format)}" | sed \
     -e "s%#{circled_window_index}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _circled '#I')%g" \
     -e "s%#{circled_session_name}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _circled '#S')%g" \
+    -e "s%#{dsquare_window_index}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _format_dsquare '#I')%g" \
     -e "s%#{username}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _username '#{pane_pid}' '#{b:pane_tty}' false '#D')%g" \
     -e "s%#{hostname}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _hostname '#{pane_pid}' '#{b:pane_tty}' false false '#h' '#D')%g" \
     -e "s%#{hostname_full}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _hostname '#{pane_pid}' '#{b:pane_tty}' false true '#H' '#D')%g" \
@@ -1217,6 +1227,7 @@ _apply_theme() {
   window_status_current_format=$(printf '%s' "${window_status_current_format:-$(tmux show -gv window-status-current-format)}" | sed \
     -e "s%#{circled_window_index}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _circled '#I')%g" \
     -e "s%#{circled_session_name}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _circled '#S')%g" \
+    -e "s%#{dsquare_window_index}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _format_dsquare '#I')%g" \
     -e "s%#{username}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _username '#{pane_pid}' '#{b:pane_tty}' false '#D')%g" \
     -e "s%#{hostname}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _hostname '#{pane_pid}' '#{b:pane_tty}' false false '#h' '#D')%g" \
     -e "s%#{hostname_full}%#(cat '$TMUX_THEME_SCRIPT' | sh -s _hostname '#{pane_pid}' '#{b:pane_tty}' false true '#H' '#D')%g" \
